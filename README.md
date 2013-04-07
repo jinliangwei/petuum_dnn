@@ -1,4 +1,4 @@
 bigsiol
 =======
 
-Big Learning Optimization Framework
+Large Scale Optimization for Structured Input-Output Lasso
