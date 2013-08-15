@@ -1,4 +1,4 @@
-bigsiol
+petuum_dnn
 =======
 
-Deep Neural Network on DNN
+Deep Neural Network on Petuum
