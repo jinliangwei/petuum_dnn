@@ -1,13 +1,23 @@
+//created by Pengtao Xie
 #include "stdafx.h"
 #include "auxds.h"
+#include "partition.h"
+#include <vector>
+using namespace std;
 #ifndef NetClass_H
 #define NetClass_H
 
 class NeuralSet
 {
-private:
+private: 
+  //neuralset id
+  string nsid;
 	Size setsize;
 	int datanum;
+  //number of parts along each dimension
+  pair<int,int> numpts;
+  //a list of partitions
+  vector<Partition> partitions;
 public:
 	NeuralSet();
 	NeuralSet(Size setsize,int datanum);
@@ -16,6 +26,8 @@ public:
 	void SetDataNum(int);
 	Size GetSize();
 	int GetDataNum();
+  //break the neural set into partitions
+  void CreatePartitions();
 };
 
 

@@ -1,3 +1,4 @@
+//created by Pengtao Xie
 #include "stdafx.h"
 #include "netclass.h"
 #include "util.h"
@@ -29,7 +30,10 @@ int NeuralSet::GetDataNum()
 	return datanum;
 }
 
-
+void NeuralSet::CreatePartitions()
+{
+  
+}
 
 //get operations
 int NS::GetNSId()//get NS id
