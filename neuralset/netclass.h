@@ -15,17 +15,20 @@ private:
 	Size setsize;
 	int datanum;
   //number of parts along each dimension
-  pair<int,int> numpts;
+  pair<int,int> numpts;//this should be a global value set by system and invisible to programmer
   //a list of partitions
   vector<Partition> partitions;
 public:
 	NeuralSet();
-	NeuralSet(Size setsize,int datanum);
+	NeuralSet(string nsid,Size setsize,int datanum);
 	~NeuralSet();
+  void SetNsid(string);
 	void SetSize(Size);
 	void SetDataNum(int);
+  string GetNsid();
 	Size GetSize();
 	int GetDataNum();
+  vector<Partition> GetPartitions();
   //break the neural set into partitions
   void CreatePartitions();
 };

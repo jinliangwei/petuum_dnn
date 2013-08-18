@@ -35,7 +35,16 @@ NeuralSet Map(NeuralSet src, Trsfm t)
 }
 void Transform(vector<NeuralSet>src, const NeuralSet & dst,Trsfm t)
 {
-
+  //can be done in parallel
+  vector<Partition> partitions;
+  for(int i=0;i<partitions.size();i++)
+  {
+    Partition p=partitions[i];
+    //find the dependent partitions
+    vector<Partition> dp=FindDP(p, src,t);
+    //do partition level transformation
+    Transfrom(dp, p,  t);
+  }
 }
 
 

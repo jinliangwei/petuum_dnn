@@ -3,6 +3,7 @@
 #include "auxds.h"
 #include <map>
 #include <math.h>
+#include <string>
 using namespace std;
 
 void VectorCopy(int * src, int * dst, int dim);
@@ -18,3 +19,4 @@ float Max(float a, float b);
 float RandGenBernou(float mu);
 float L2NormMat(float ** matrix, int rows, int cols);
 float RandGenGaussian(float mu,float sigma);
+string Num2String(int digit);

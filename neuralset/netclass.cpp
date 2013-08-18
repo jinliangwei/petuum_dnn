@@ -7,19 +7,31 @@ NeuralSet::NeuralSet()
 {
 
 }
-NeuralSet::NeuralSet(Size setsize,int datanum)
+NeuralSet::NeuralSet(string nsid,Size setsize,int datanum)
 {
-
+  this->nsid=nsid;
+  this->setsize=setsize;
+  this->datanum=datanum;
+  CreatePartitions();
 }
 NeuralSet::~NeuralSet()
 {
 }
+void NeuralSet::SetNsid(string nsid)
+{
+  this->nsid=nsid;
+}
 void NeuralSet::SetSize(Size s)
 {
-
+  this->setsize=s;
 }
 void NeuralSet::SetDataNum(int datanum)
 {
+  this->datanum=datanum;
+}
+string NeuralSet::GetNsid()
+{
+  return nsid;
 }
 Size NeuralSet::GetSize()
 {
@@ -29,9 +41,49 @@ int NeuralSet::GetDataNum()
 {
 	return datanum;
 }
-
+vector<Partition> NeuralSet::GetPartitions()
+{
+  return partitions;
+}
 void NeuralSet::CreatePartitions()
 {
+  //this is the interface between high level data abstraction and low level system implementation
+  //number of rows in each partition
+  int prows=setsize.first/numpts.first;
+  //number of cols in each partition
+  int pcols=setsize.second/numpts.second;
+  for(int i=0;i<numpts.first;i++)
+  {
+    for(int j=0;j<numpts.second;j++)
+    {
+      string ptid=nsid+"_"+Num2String(i)+"_"+Num2String(j);
+      int mid=0;//this should be a global variable, redo it later
+      pair<int,int> offset(i*prows,j*pcols);
+      Size sz;
+      if(i<numpts.first-1&&j<numpts.second-1)
+      {
+        sz.first=prows;
+        sz.second=pcols;
+      }
+      else if(i==numpts.first-1&&j<numpts.second-1)
+      {
+        sz.first=setsize.first-prows*(numpts.first-1);
+        sz.second=pcols;
+      }
+      else if(i<numpts.first-1&&j==numpts.second-1)
+      {
+        sz.first=prows;
+        sz.second=setsize.second-pcols*(numpts.second-1);
+      }
+      else if(i==numpts.first-1&&j==numpts.second-1)
+      {
+        sz.first=setsize.first-prows*(numpts.first-1);
+        sz.second=setsize.second-pcols*(numpts.second-1);
+      }
+      Partition pt(ptid,mid, nsid,offset,sz,datanum);
+      partitions.push_back(pt);
+    }
+  }
   
 }
 
