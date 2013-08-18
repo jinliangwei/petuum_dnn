@@ -5,6 +5,12 @@
 #include <math.h>
 #include <random>
 using namespace std;
+string Num2String(int digit)
+{
+  char str[512];
+  sprintf(str,"%d",digit);
+  return str;
+}
 void VectorCopy(int * src, int * dst, int dim)
 {
 	for(int i=0;i<dim;i++)

@@ -1,6 +1,7 @@
 //created by Pengtao Xie
 #include "stdafx.h"
 #include "netclass.h"
+#include "partition.h"
 #include "auxds.h"
 
 //transformations
@@ -8,7 +9,16 @@ Size ComputeSize(Size src, Trsfm t);
 
 NeuralSet Map(NeuralSet src, Trsfm t);
 
+//NeuralSet level transformation from a set of NeuralSets to a NeuralSet
 void Transform(vector<NeuralSet>src, const NeuralSet & dst,Trsfm t);
+//Partition level transformation from a set of Partitions to a Partition
+void Transfrom(vector<Partition>src, const Partition & dst, Trsfm t);
+//for a Partition P, given a set of NeuralSets and the transformation, find the dependent Partitions 
+//which are needed by P
+vector<Partition> FindDP(Partition p, vector<NeuralSet> src, Trsfm t);
+
+
+
 //user defined
 void Map2d(int x,int y, int & x1,int & x2, int& y1, int& y2 );
 void Map1d(int x,int &x1,int &x2);
