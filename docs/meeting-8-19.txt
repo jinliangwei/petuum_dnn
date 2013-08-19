@@ -18,3 +18,7 @@ DnnContext.Transform(...);
 
 1) After local schedulers receive a NeuronSet, it further partitions the partition that it receives to "scheduling blocks" (NeuronScheBlock). The local scheduler builds its own DAG whose nodes are the building blocks.
 2) Local scheduelr access data (neurons) through the interface of NeuronSet. It may read or write one or a set of neurons.
+
+3. NeuronPartition
+
+Note that we will not build dependencies on NeuronPartitions and each partition does not keep a list of the partitions that it depends on.
