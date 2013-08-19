@@ -1,0 +1,20 @@
+1. The user interface need to register the user-created NeuronSets and operations to the global scheduler. In order to do that, we need a class DnnContext.
+
+NeuronSets should be created by DnnContext as:
+
+DnnContext.CreateNeuronSet(...);
+
+Transformations on NeuronSets should also happen through DnnContext as:
+
+DnnContext.Transform(...);
+
+2. Responsibilities of global and local scheduler:
+
+1) After getting all NeuronSets and operations on them, global scheduler should be able to figure out the dimensions of each NeuronSet, from lower layer to higher.
+2) The global scheduler sets the lineage into each NeuronSet. Lineage contains information about the parent NeuronSets, the Transformation, and the Aggregate.
+3) Transformation transforms one NeuronSet to another one. But there are cases (filtering) where multiple NeuronSets are transformed to one. That is done by transforming each parent NeuronSet then add up the resulting NeuronSets. The "adding up" is represented by Aggregate.
+4) The global scheduler also partitions each NeuronSet (if it is large enough). Then each NeuronSet is sent to all clients with the actual neuron data of only one partition. But the NeuronSet contains a list of handles of other patitions, which records where the other NeuronSets are located.
+5) Note that partitions may overlap.
+
+1) After local schedulers receive a NeuronSet, it further partitions the partition that it receives to "scheduling blocks" (NeuronScheBlock). The local scheduler builds its own DAG whose nodes are the building blocks.
+2) Local scheduelr access data (neurons) through the interface of NeuronSet. It may read or write one or a set of neurons.
